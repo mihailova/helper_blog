@@ -1,0 +1,35 @@
+doctype
+html lang="en"
+  head
+    meta charset="utf-8"
+    meta content="width=(device-width,)initial-scale=1.0" name="viewport"
+    title Helper Blog
+
+    = stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true
+    = javascript_include_tag "application", "data-turbolinks-track" => true
+    = csrf_meta_tags
+
+  body
+    .navbar
+      .navbar-inner
+        a.brand href="#" Helper Blog
+        ul.nav
+          li.active
+            a href="#" Tags
+         
+
+    .container
+      .row
+        .span8.offset2
+          - flash.each do |notice|
+            div class="alert alert-#{notice.first} fade in" data-alert="alert"
+              a.close data-dismiss='alert' href="#" ×
+              p = notice.last
+      .row
+        .span12
+          = yield
+
+      hr
+        footer
+          p &copy; Company 2013
+
