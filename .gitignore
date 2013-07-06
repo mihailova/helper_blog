@@ -1,5 +1,6 @@
 *.rbc
 /config/database.yml
+/config/application.yml
 *.sassc
 .sass-cache
 capybara-*.html

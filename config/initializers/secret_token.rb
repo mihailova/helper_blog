@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-HelperBlog::Application.config.secret_key_base = '42c0e2a7a3184f00393f53aa6bcc30dd9af0187499cce022ebd2778eaf41525ab03bdf2573fcbe8469a085ec38a23ef0f74233e5b2c26d526b62a066e61de290'
+HelperBlog::Application.config.secret_key_base = ENV['SECRET_KEY_TOKEN']
