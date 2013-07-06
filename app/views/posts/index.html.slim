@@ -1,0 +1,8 @@
+.posts
+  - @posts.each do |post|
+      .row
+        .span10.offset1
+          span.title
+            = post.title
+          .text
+            = post.text.truncate(200, separator: ' ')
