@@ -14,6 +14,8 @@ class PostsController < ApplicationController
 
     if @post.update_attributes(post_params)
       redirect_to post_path(@post), notice:  "Post has been successfully created."
+    else
+      render :new
     end
   end
 
@@ -29,10 +31,10 @@ class PostsController < ApplicationController
   end
 
   def update
-    post = Post.find(params[:id])
+    @post = Post.find(params[:id])
 
-    if post.update_attributes(post_params)
-      redirect_to post_path(post), notice: 'Post has been successfully updated.'
+    if @post.update_attributes(post_params)
+      redirect_to post_path(@post), notice: 'Post has been successfully updated.'
     else
       render :edit
     end
