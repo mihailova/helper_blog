@@ -1,10 +1,12 @@
-.post
+.post.hero-unit
   - if @post.private
     span.private.label.label-info private 
-  = @post.title
-  = @post.text
+  h1
+    = @post.title
+  p
+    = @post.text
   .tags
-    = @post.tags.join(', ')
+      = @post.tags.join(', ')
 
   - if  user_signed_in?
     .controls.btn-group.pull-right
