@@ -3,7 +3,7 @@ class CreatePosts < ActiveRecord::Migration
     create_table :posts do |t|
       t.string :title
       t.text :text
-      t.string :tags, array: true, default: '{}'
+      t.text :tags, array: true
       t.boolean :private
 
       t.timestamps
