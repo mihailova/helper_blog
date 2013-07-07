@@ -2,7 +2,7 @@ doctype
 html lang="en"
   head
     meta charset="utf-8"
-    meta content="width=(device-width,)initial-scale=1.0" name="viewport"
+    meta content="width=device-width, initial-scale=1.0" name="viewport"
     title Helper Blog
 
     = stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true
@@ -10,20 +10,21 @@ html lang="en"
     = csrf_meta_tags
 
   body
-    .navbar
-      .navbar-inner
-        a.brand href="#" Helper Blog
-        p.navbar-text.pull-right
-          - if user_signed_in?
-            = link_to 'Logout', destroy_user_session_path, :method => :delete, :class => "navbar-link"
-          - else
-            = link_to 'Login', new_user_session_path, :class => "navbar-link"
-        ul.nav
-          li.active
-            a href="#" Tags
-         
-
     .container
+      .row
+        .span12
+          .navbar
+            .navbar-inner
+              a.brand href="#" Helper Blog
+              p.navbar-text.pull-right
+                - if user_signed_in?
+                  = link_to 'Logout', destroy_user_session_path, :method => :delete, :class => "navbar-link"
+                - else
+                  = link_to 'Login', new_user_session_path, :class => "navbar-link"
+              ul.nav
+                li.active
+                  a href="#" Tags
+
       .row
         .span8.offset2
           - flash.each do |notice|
