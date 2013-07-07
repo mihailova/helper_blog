@@ -23,7 +23,7 @@ class PostsController < ApplicationController
 
     def post_params
       parameters = params.require(:post).permit(:title, :text, :tags, :private)
-      parameters[:tags] = parameters[:tags].split(/[\s,]+/)
+      parameters[:tags] = parameters[:tags].split(/[\s,]+/) if parameters[:tags].kind_of? String 
       parameters
     end
 end
