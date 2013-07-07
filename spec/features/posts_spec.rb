@@ -1,4 +1,9 @@
 require 'spec_helper'
+require 'action_view/helpers/sanitize_helper'
+
+class SanitizeHelper
+  include ActionView::Helpers::SanitizeHelper
+end
 
 describe 'Posts' do
   let(:post) { FactoryGirl.build(:post, id: 10) }
@@ -20,7 +25,7 @@ describe 'Posts' do
 
       it 'contain first 200 letters of post text' do
         within("div.posts") do
-          expect(page).to have_content post.text.truncate(200, separator: ' ')
+          expect(page).to have_content SanitizeHelper.new.strip_tags(post.text).truncate(200, separator: ' ')
         end
       end
 

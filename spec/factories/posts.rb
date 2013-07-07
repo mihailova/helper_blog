@@ -7,7 +7,7 @@ FactoryGirl.define do
     end
 
     text <<EOF;
-Lorem ipsum Elit in sunt ad in eu aute qui irure quis cillum irure laboris 
+<b>Lorem</b> ipsum Elit in sunt ad in eu aute qui irure quis cillum irure laboris 
 officia et sunt Duis eu irure Excepteur nisi dolore dolor ex sed ea quis 
 adipisicing ad labore Duis in commodo fugiat occaecat nostrud incididunt 
 adipisicing cupidatat ullamco eu in elit aliquip tempor dolor eu voluptate id 
