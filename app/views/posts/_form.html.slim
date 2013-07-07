@@ -1,7 +1,7 @@
 = simple_form_for @post do |f|
-  = f.input :title
-  = f.input :text
-  = f.input :tags, input_html: { value: @post.tags.join(' ') }
+  = f.input :title, input_html: { class: 'span8' }
+  = f.input :text, input_html: { class: 'span12' }
+  = f.input :tags, input_html: { value: @post.tags.join(' '), class: 'span8' }
   = f.input :private
 
   = f.submit
