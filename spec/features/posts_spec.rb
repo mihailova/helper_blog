@@ -1,10 +1,10 @@
 require 'spec_helper'
 
 describe 'Posts' do
+  let(:post) { FactoryGirl.build(:post, id: 10) }
 
   context '#index' do
-    let(:post) { FactoryGirl.build(:post, id: 10) }
-
+    
     before :each do
       Post.stub(all: [post]) 
     end
@@ -67,4 +67,35 @@ describe 'Posts' do
 
     end
   end
+
+  context '#new' do
+
+    context 'user logged' do
+      let(:user) { FactoryGirl.create(:user) }
+
+      before :each do
+        login_as(user, :scope => :user)
+        visit new_post_path
+      end
+
+      after(:each) { Warden.test_reset!  }
+
+      it 'can create post' do
+        expect do 
+          within('form') do
+            fill_in 'post_title', with: post.title
+            fill_in 'post_text', with: post.text
+            fill_in 'post_tags', with: 'new'
+            check 'post_private'
+
+            click_on 'Create Post'
+          end
+        end.to change { Post.count }.by(1)
+      end
+    end
+
+    context 'user not logged' do
+    end
+  end
+
 end

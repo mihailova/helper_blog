@@ -46,7 +46,7 @@ exercitation ullamco ea esse cillum do consequat exercitation minim dolor ut
 consectetur tempor mollit.
 EOF
 
-    tags ""
+    tags 'new'
     private false
   end
 end
