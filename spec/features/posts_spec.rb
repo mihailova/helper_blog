@@ -103,4 +103,81 @@ describe 'Posts' do
     end
   end
 
+  context "#show" do
+
+    before do
+      Post.stub(find: post)
+    end
+    context 'user logged' do
+      let(:user) { FactoryGirl.create(:user) }
+
+      before :each do
+        login_as(user, :scope => :user)
+        visit post_path(post)
+      end
+
+      it 'contain delete link' do
+        within('.post .controls') do
+          expect(page).to have_link 'delete', post_path(post)
+        end
+      end
+
+      it 'contain edit link' do
+        within('.post .controls') do
+          expect(page).to have_link 'edit', edit_post_path(post)
+        end
+      end
+
+    end
+
+    context 'user not logged' do
+      before { visit post_path(post)}
+
+      it 'content post title' do
+        within('.post') do
+          expect(page).to have_content post.title
+        end
+      end
+
+      it 'content post text' do
+        within('.post') do
+          expect(page).to have_content post.text
+        end
+      end
+
+      it 'not contain delete link' do
+        within('.post') do
+          expect(page).not_to have_link 'delete', post_path(post)
+        end
+      end
+
+      it 'not contain edit link' do
+        within('.post') do
+          expect(page).not_to have_link 'edit', edit_post_path(post)
+        end
+      end
+
+      context 'private posts' do
+        
+        let(:private_post) { FactoryGirl.build(:post, id: 1, private: true) }
+        
+        before do
+          Post.stub(find: private_post)
+          visit post_path(private_post)
+        end
+
+        it 'not contain post' do
+          expect(page).not_to have_content private_post.text
+        end
+
+        it 'gets redirected' do
+          expect(page.current_path).to eq new_user_session_path
+        end
+      end
+
+
+    end
+    
+  end
+
 end

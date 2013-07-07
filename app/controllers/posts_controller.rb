@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_filter :authenticate_user!, :except => [:index]
+  before_filter :authenticate_user!, :except => [:index, :show]
 
   def index
     @posts = Post.all
@@ -18,6 +18,10 @@ class PostsController < ApplicationController
   end
 
   def show
+    @post = Post.find(params[:id])
+    if @post.private && !user_signed_in?
+      redirect_to new_user_session_path, notice: "Have to login to see private posts"
+    end
   end
 
   private

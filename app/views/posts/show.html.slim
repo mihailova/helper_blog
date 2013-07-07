@@ -1,0 +1,7 @@
+.post
+  = @post.title
+  = @post.text
+  - if  user_signed_in?
+    .controls.btn-group.pull-right
+      = link_to 'edit', edit_post_path(@post), class: 'btn btn-mini'
+      = link_to 'delete', post_path(@post), class: 'btn btn-mini btn-danger'
