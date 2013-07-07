@@ -95,6 +95,11 @@ describe 'Posts' do
     end
 
     context 'user not logged' do
+      before { visit new_post_path }
+
+      it 'gets redirected' do
+        expect(page.current_path).to eq new_user_session_path
+      end
     end
   end
 
