@@ -116,6 +116,8 @@ describe 'Posts' do
         visit post_path(post)
       end
 
+      after(:each) { Warden.test_reset!  }
+
       it 'contain delete link' do
         within('.post .controls') do
           expect(page).to have_link 'delete', post_path(post)
@@ -174,10 +176,60 @@ describe 'Posts' do
           expect(page.current_path).to eq new_user_session_path
         end
       end
+    end
+  end
 
+  context "#edit" do
+
+    context "logged" do
+      let(:user) { FactoryGirl.create(:user) }
+      let(:post) { FactoryGirl.create(:post) }
+
+      before :each do
+        login_as(user, :scope => :user)
+
+        visit edit_post_path(post)
+
+        within("form") do
+          fill_in 'post_title', with: "New Title"
+          fill_in 'post_text', with: 'New Body text'
+          fill_in 'post_tags', with: 'az ti'
+          check 'post_private'
+
+          click_on 'Update Post'
+        end
+      end
+
+      after(:each) { Warden.test_reset! }
+
+      it 'title is changed' do
+        expect(page).to have_content "New Title"
+      end
+
+      it 'text is changed' do
+        expect(page).to have_content "New Body text"
+      end
+
+      it 'tags is changed' do
+        within '.post .tags' do
+          expect(page).to have_content "az"
+          expect(page).to have_content "ti"
+        end
+      end
+
+      it 'private is changed' do
+        expect(page).to have_selector ".private", text: 'private'
+      end
 
     end
-    
+
+    context 'not logged' do
+      it 'gets redirected' do
+        visit edit_post_path(post)
+        expect(page.current_path).to eq new_user_session_path
+      end
+    end
+
   end
 
 end

@@ -1,6 +1,11 @@
 .post
+  - if @post.private
+    span.private.label.label-info private 
   = @post.title
   = @post.text
+  .tags
+    = @post.tags.join(', ')
+
   - if  user_signed_in?
     .controls.btn-group.pull-right
       = link_to 'edit', edit_post_path(@post), class: 'btn btn-mini'
