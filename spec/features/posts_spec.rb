@@ -113,6 +113,7 @@ describe 'Posts' do
     before do
       Post.stub(find: post)
     end
+
     context 'user logged' do
       let(:user) { FactoryGirl.create(:user) }
 
@@ -148,7 +149,7 @@ describe 'Posts' do
 
       it 'content post text' do
         within('.post') do
-          expect(page).to have_content post.text
+          expect(page).to have_content SanitizeHelper.new.strip_tags(post.text)
         end
       end
 
