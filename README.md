@@ -1,4 +1,4 @@
 helper_blog
 ===========
 
-small blogging application
+small blogging application with postgresql
