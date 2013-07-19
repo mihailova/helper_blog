@@ -6,5 +6,5 @@ class User < ActiveRecord::Base
 
   has_many :posts
 
-  
+  has_many :changed_posts, class_name: "Post", foreign_key: :last_editor_id
 end

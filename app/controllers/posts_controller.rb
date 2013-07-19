@@ -11,6 +11,7 @@ class PostsController < ApplicationController
 
   def create
     @post = current_user.posts.new
+    current_user.changed_posts << @post
 
     if @post.update_attributes(post_params)
       redirect_to post_path(@post), notice:  "Post has been successfully created."
@@ -32,7 +33,8 @@ class PostsController < ApplicationController
 
   def update
     @post = Post.find(params[:id])
-
+    current_user.changed_posts << @post
+    
     if @post.update_attributes(post_params)
       redirect_to post_path(@post), notice: 'Post has been successfully updated.'
     else

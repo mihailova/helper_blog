@@ -1,10 +1,12 @@
 .post.hero-unit
-  - if @post.private
-    span.private.label.label-info private 
-    
   .well.well-small.pull-right
     p
       = "Created before #{time_ago_in_words (@post.created_at)} by #{@post.user.name}"
+    p
+      = "Updated before #{time_ago_in_words (@post.updated_at)} by #{@post.last_editor.name}"
+
+  - if @post.private
+    span.private.label.label-info private 
     
   h1
     = @post.title

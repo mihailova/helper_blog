@@ -48,7 +48,9 @@ EOF
 
     tags 'new'
     private false
-    created_at {Time.now}
+    created_at {10.days.ago}
+    updated_at {Time.now}
     association :user, factory: :user
+    association :last_editor, factory: :user
   end
 end

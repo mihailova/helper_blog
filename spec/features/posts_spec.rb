@@ -165,6 +165,18 @@ describe 'Posts' do
         end
       end
 
+       it 'content last editor name' do
+        within('.post') do
+          expect(page).to have_content post.last_editor.name
+        end
+      end
+
+      it 'content updated_at date' do
+        within('.post') do
+          expect(page).to have_content time_ago_in_words(post.updated_at)
+        end
+      end
+
 
 
       it 'not contain delete link' do
