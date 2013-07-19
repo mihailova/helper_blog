@@ -48,6 +48,7 @@ EOF
 
     tags 'new'
     private false
+    can_modify true
     created_at {10.days.ago}
     updated_at {Time.now}
     association :user, factory: :user

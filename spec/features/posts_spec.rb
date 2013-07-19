@@ -265,4 +265,101 @@ describe 'Posts' do
 
   end
 
+  describe "unalterable posts" do
+    let(:post) { FactoryGirl.build(:post, id: 10, can_modify: false) }
+    
+    context 'user is logged' do
+      let(:user) { FactoryGirl.create(:user) }
+
+      before :each do
+        login_as(user, :scope => :user)
+      end
+
+      after(:each) { Warden.test_reset!  }
+
+      context "logget user is post's author" do
+        before { post.user = user}
+        
+        context '#index' do
+          before :each do
+            Post.stub(all: [post]) 
+            visit posts_path
+          end
+
+          it 'contain delete link' do
+            within("div.posts .controls") do
+              expect(page).to have_link "delete", post_path(post)
+            end
+          end
+
+          it 'contain edit link' do
+            within("div.posts .controls") do
+              expect(page).to have_link "edit", edit_post_path(post)
+            end
+          end
+        end
+
+        context "#show" do
+          before do
+            Post.stub(find: post)
+            visit post_path(post) 
+          end
+
+          it 'contain delete link' do
+            within(".post") do
+              expect(page).to have_link "delete", post_path(post)
+            end
+          end
+
+          it 'contain edit link' do
+            within(".post") do
+              expect(page).to have_link "edit", edit_post_path(post)
+            end
+          end
+        end
+      end
+
+      context "logget user is not post's author" do
+        before { post.user = FactoryGirl.build(:user) }
+
+        context '#index' do
+          before :each do
+            Post.stub(all: [post]) 
+            visit posts_path
+          end
+
+          it 'not contain delete link' do
+            within("div.posts") do
+              expect(page).not_to have_link "delete", post_path(post)
+            end
+          end
+
+          it 'not contain edit link' do
+            within("div.posts") do
+              expect(page).not_to have_link "edit", edit_post_path(post)
+            end
+          end
+        end
+
+        context "#show" do
+          before do
+            Post.stub(find: post)
+            visit post_path(post) 
+          end
+
+          it 'not contain delete link' do
+            within(".post") do
+              expect(page).not_to have_link "delete", post_path(post)
+            end
+          end
+
+          it 'not contain edit link' do
+            within(".post") do
+              expect(page).not_to have_link "edit", edit_post_path(post)
+            end
+          end
+        end
+      end
+    end
+  end
 end

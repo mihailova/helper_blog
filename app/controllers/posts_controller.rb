@@ -29,12 +29,17 @@ class PostsController < ApplicationController
 
   def edit
     @post = Post.find(params[:id])
+
+    unless @post.can_modify || @post.user == current_user
+        render :show 
+    end
+
   end
 
   def update
     @post = Post.find(params[:id])
     current_user.changed_posts << @post
-    
+
     if @post.update_attributes(post_params)
       redirect_to post_path(@post), notice: 'Post has been successfully updated.'
     else
@@ -45,7 +50,7 @@ class PostsController < ApplicationController
   private
 
     def post_params
-      parameters = params.require(:post).permit(:title, :text, :tags, :private)
+      parameters = params.require(:post).permit(:title, :text, :tags, :private, :can_modify)
       parameters[:tags] = parameters[:tags].split(/[\s,]+/) if parameters[:tags].kind_of? String 
       parameters
     end

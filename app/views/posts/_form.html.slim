@@ -3,5 +3,6 @@
   = f.input :text, input_html: { class: 'span12' }
   = f.input :tags, input_html: { value: @post.tags.join(' '), class: 'span8' }
   = f.input :private
+  = f.input :can_modify
 
   = f.submit
