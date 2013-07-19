@@ -10,7 +10,7 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = Post.new
+    @post = current_user.posts.new
 
     if @post.update_attributes(post_params)
       redirect_to post_path(@post), notice:  "Post has been successfully created."

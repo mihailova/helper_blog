@@ -1,12 +1,18 @@
 .post.hero-unit
   - if @post.private
     span.private.label.label-info private 
+    
+  .well.well-small.pull-right
+    p
+      = "Created before #{time_ago_in_words (@post.created_at)} by #{@post.user.name}"
+    
   h1
     = @post.title
   p
     == @post.text
   .tags
       = @post.tags.join(', ')
+  
 
   - if  user_signed_in?
     .controls.btn-group.pull-right

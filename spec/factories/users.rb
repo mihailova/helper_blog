@@ -8,5 +8,6 @@ FactoryGirl.define do
 
     password 12345678
     password_confirmation 12345678
-  end
+    name "Ina Mihailova"
+   end
 end

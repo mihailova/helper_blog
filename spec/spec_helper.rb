@@ -7,6 +7,7 @@ require 'capybara/rspec'
 require "paperclip/matchers"
 
 include Warden::Test::Helpers
+include ActionView::Helpers::DateHelper
 Warden.test_mode!
 
 # Requires supporting ruby files with custom matchers and macros, etc,

@@ -7,7 +7,7 @@ end
 
 describe 'Posts' do
   let(:post) { FactoryGirl.build(:post, id: 10) }
-
+  
   context '#index' do
     
     before :each do
@@ -153,6 +153,20 @@ describe 'Posts' do
         end
       end
 
+      it 'content creator name' do
+        within('.post') do
+          expect(page).to have_content post.user.name
+        end
+      end
+
+      it 'content created_at date' do
+        within('.post') do
+          expect(page).to have_content time_ago_in_words(post.created_at)
+        end
+      end
+
+
+
       it 'not contain delete link' do
         within('.post') do
           expect(page).not_to have_link 'delete', post_path(post)
@@ -190,6 +204,7 @@ describe 'Posts' do
     context "logged" do
       let(:user) { FactoryGirl.create(:user) }
       let(:post) { FactoryGirl.create(:post) }
+      
 
       before :each do
         login_as(user, :scope => :user)

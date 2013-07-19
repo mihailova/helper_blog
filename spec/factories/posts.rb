@@ -48,5 +48,7 @@ EOF
 
     tags 'new'
     private false
+    created_at {Time.now}
+    association :user, factory: :user
   end
 end
