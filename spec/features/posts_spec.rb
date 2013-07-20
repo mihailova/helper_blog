@@ -135,7 +135,6 @@ describe 'Posts' do
           expect(page).to have_link 'edit', edit_post_path(post)
         end
       end
-
     end
 
     context 'user not logged' do
@@ -208,6 +207,50 @@ describe 'Posts' do
           expect(page.current_path).to eq new_user_session_path
         end
       end
+    end
+  end
+
+  context "#destroy" do
+    let(:post) { FactoryGirl.create(:post) }
+    
+    context "user is logged" do
+      let(:user) { FactoryGirl.create(:user) }
+
+      before :each do
+        login_as(user, :scope => :user)
+      end
+
+      after(:each) { Warden.test_reset!  }
+
+
+
+      context "in show page" do
+        before {visit post_path(post)}
+
+        it 'can destroy post' do
+          expect do
+            within('.post .controls') do
+              click_on 'delete'
+            end
+          end.to change { Post.count }.by(-1)
+        end
+      end
+
+      context "in index page" do
+        before do
+          @post = post
+          visit posts_path
+        end
+
+        it 'can destroy post' do
+          expect do
+            within('div.posts') do
+              click_on 'delete'
+            end
+          end.to change { Post.count }.by(-1)
+        end
+      end
+
     end
   end
 
