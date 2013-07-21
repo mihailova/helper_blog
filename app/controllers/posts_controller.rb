@@ -2,7 +2,8 @@ class PostsController < ApplicationController
   before_filter :authenticate_user!, :except => [:index, :show]
 
   def index
-    @posts = Post.all
+    @posts =  Post.all.page(params[:page]).per(10)
+
   end
 
   def new
@@ -62,4 +63,5 @@ class PostsController < ApplicationController
       parameters[:tags] = parameters[:tags].split(/[\s,]+/) if parameters[:tags].kind_of? String 
       parameters
     end
+ 
 end

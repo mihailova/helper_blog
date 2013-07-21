@@ -6,13 +6,10 @@ class SanitizeHelper
 end
 
 describe 'Posts' do
-  let(:post) { FactoryGirl.build(:post, id: 10) }
+  let(:post) { FactoryGirl.create(:post) }
   
   context '#index' do
-    
-    before :each do
-      Post.stub(all: [post]) 
-    end
+    before { @post = post }
 
     context 'user not logged' do
       before { visit posts_path }
@@ -109,10 +106,6 @@ describe 'Posts' do
   end
 
   context "#show" do
-
-    before do
-      Post.stub(find: post)
-    end
 
     context 'user logged' do
       let(:user) { FactoryGirl.create(:user) }
@@ -211,7 +204,7 @@ describe 'Posts' do
   end
 
   context "#destroy" do
-    let(:post) { FactoryGirl.create(:post) }
+    let!(:post) { FactoryGirl.create(:post) }
     
     context "user is logged" do
       let(:user) { FactoryGirl.create(:user) }
@@ -237,10 +230,7 @@ describe 'Posts' do
       end
 
       context "in index page" do
-        before do
-          @post = post
-          visit posts_path
-        end
+        before { visit posts_path }
 
         it 'can destroy post' do
           expect do
@@ -309,7 +299,7 @@ describe 'Posts' do
   end
 
   describe "unalterable posts" do
-    let(:post) { FactoryGirl.build(:post, id: 10, can_modify: false) }
+    let!(:post) { FactoryGirl.create(:post, can_modify: false) }
     
     context 'user is logged' do
       let(:user) { FactoryGirl.create(:user) }
@@ -321,11 +311,10 @@ describe 'Posts' do
       after(:each) { Warden.test_reset!  }
 
       context "logget user is post's author" do
-        before { post.user = user}
+        before { post.update_attributes(:user => user) }
         
         context '#index' do
           before :each do
-            Post.stub(all: [post]) 
             visit posts_path
           end
 
@@ -344,7 +333,6 @@ describe 'Posts' do
 
         context "#show" do
           before do
-            Post.stub(find: post)
             visit post_path(post) 
           end
 
@@ -363,11 +351,10 @@ describe 'Posts' do
       end
 
       context "logget user is not post's author" do
-        before { post.user = FactoryGirl.build(:user) }
+        before { post.update_attributes(:user => FactoryGirl.build(:user)) }
 
         context '#index' do
           before :each do
-            Post.stub(all: [post]) 
             visit posts_path
           end
 
@@ -386,7 +373,6 @@ describe 'Posts' do
 
         context "#show" do
           before do
-            Post.stub(find: post)
             visit post_path(post) 
           end
 
@@ -404,5 +390,21 @@ describe 'Posts' do
         end
       end
     end
+  end
+
+  describe "pagination" do
+    let!(:posts) { FactoryGirl.create_list(:post, 11) }
+
+    describe "in index page" do
+      before { visit root_path }
+
+      it "contain link to next page" do
+        expect(page).to have_link "Next ›", "/posts?page=2" 
+      end
+
+      it "contain link to 2nd page" do
+        expect(page).to have_link "2", "/posts?page=2" 
+      end
+    end 
   end
 end
