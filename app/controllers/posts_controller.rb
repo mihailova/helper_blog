@@ -31,9 +31,7 @@ class PostsController < ApplicationController
   def edit
     @post = Post.find(params[:id])
 
-    unless @post.can_modify || @post.user == current_user
-        render :show 
-    end
+    @post.canEdit?(current_user) or return render :show
 
   end
 
