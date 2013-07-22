@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_filter :authenticate_user!, :except => [:index, :show, :search]
+  before_filter :authenticate_user!, :except => [:index, :show, :search, :tags, :serach_by_tag]
 
   def index
     @posts =  Post.all.page(params[:page]).per(10)
@@ -56,6 +56,15 @@ class PostsController < ApplicationController
 
   def search
     @posts = Kaminari.paginate_array(Post.searchAll(params[:search])).page(params[:page]).per(10)
+    render :index
+  end
+
+  def tags
+    @tags = Post.select(:tags).map(&:tags).flatten.uniq
+  end
+
+  def serach_by_tag
+    @posts = Kaminari.paginate_array(Post.search_by_tags(params[:tag])).page(params[:page]).per(10)
     render :index
   end
 

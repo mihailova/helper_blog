@@ -46,7 +46,7 @@ exercitation ullamco ea esse cillum do consequat exercitation minim dolor ut
 consectetur tempor mollit.
 EOF
 
-    tags 'new'
+    tags ['new']
     private false
     can_modify true
     created_at {10.days.ago}
