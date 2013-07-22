@@ -7,7 +7,7 @@
               = link_to post.title, post_path(post)
             span.text
               |  - 
-              = strip_tags(post.text).truncate(200, separator: ' ')
+              == strip_tags(post.text).truncate(200, separator: ' ')
             br
             - if user_signed_in? && (post.can_modify || post.user == current_user)
               .controls.btn-group.pull-right
