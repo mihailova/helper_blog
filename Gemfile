@@ -17,6 +17,8 @@ gem 'coffee-rails', '~> 4.0.0'
 
 gem 'kaminari'
 
+gem 'textacular', "~> 3.0", require: 'textacular/rails'
+
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 

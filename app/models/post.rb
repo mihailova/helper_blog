@@ -9,4 +9,11 @@ class Post < ActiveRecord::Base
   	  self.can_modify || ( current_user and self.user == current_user )
   end
 
+  def self.searchAll (key_word)
+  	posts = self.basic_search(key_word)
+  	posts += self.fuzzy_search(title: key_word)
+  	posts += self.fuzzy_search(text: key_word)
+  	posts.uniq
+  end
+
 end

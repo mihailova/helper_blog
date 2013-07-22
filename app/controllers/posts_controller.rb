@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_filter :authenticate_user!, :except => [:index, :show]
+  before_filter :authenticate_user!, :except => [:index, :show, :search]
 
   def index
     @posts =  Post.all.page(params[:page]).per(10)
@@ -52,6 +52,11 @@ class PostsController < ApplicationController
       redirect_to root_path, notice: 'Post has been successfully deleted.'
     end
 
+  end
+
+  def search
+    @posts = Kaminari.paginate_array(Post.searchAll(params[:search])).page(params[:page]).per(10)
+    render :index
   end
 
   private

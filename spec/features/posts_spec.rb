@@ -84,7 +84,7 @@ describe 'Posts' do
 
       it 'can create post' do
         expect do 
-          within('form') do
+          within('form.post') do
             fill_in 'post_title', with: post.title
             fill_in 'post_text', with: post.text
             fill_in 'post_tags', with: 'new'
@@ -256,7 +256,7 @@ describe 'Posts' do
 
         visit edit_post_path(post)
 
-        within("form") do
+        within("form.post") do
           fill_in 'post_title', with: "New Title"
           fill_in 'post_text', with: 'New Body text'
           fill_in 'post_tags', with: 'az ti'
