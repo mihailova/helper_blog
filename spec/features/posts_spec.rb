@@ -182,7 +182,7 @@ describe 'Posts' do
       end
 
       it 'content picture image' do
-        expect(page).to have_css ('img[src*="' + post.pictures.first.image.url + '"]')
+        expect(page).to have_css ('img[src*="' + post.pictures.first.image.url(:large) + '"]')
       end
 
       it 'content creator name' do

@@ -1,10 +1,6 @@
 .tags
   - @tags.each do |tag|
+    .span8.offset1
       .well.well-small
-        .row
-          .span10.offset1
-            span.title
-              = link_to tag, posts_serach_by_tag_path(tag)
-            span.text
-            
-              
+        span.title
+          = link_to tag, posts_serach_by_tag_path(tag)

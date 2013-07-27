@@ -2,8 +2,7 @@ require 'spec_helper'
 
 describe ApplicationHelper do
  
-
-  describe "comments_form_url" do
+   describe "comments_form_url" do
     let(:post){ FactoryGirl.create(:post) }
     context "New record" do
       let(:comment) {FactoryGirl.build(:post, id: 1)}

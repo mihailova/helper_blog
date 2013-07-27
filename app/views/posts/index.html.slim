@@ -1,20 +1,23 @@
 .posts
   - @posts.each do |post|
-      .well.well-small
-        .row
-          .span10.offset1
-            span.title
-              = link_to post.title, post_path(post)
-            span.text
-              |  - 
-              == strip_tags(post.text).truncate(200, separator: ' ')
-            br
-            - if user_signed_in? && (post.can_modify || post.user == current_user)
-              .controls.btn-group.pull-right
-                = link_to 'edit', edit_post_path(post), class: 'btn btn-mini'
-                = link_to 'delete', post_path(post), class: 'btn btn-mini btn-danger',:method => 'delete',
-                :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }
-      hr
+    - if post.private
+      .pull-left
+        span.private.label.label-info private
+    .well.well-small
+      .row
+        .span10
+          span.title
+            = link_to post.title, post_path(post)
+          span.text
+            |  - 
+            == strip_tags(post.text).truncate(200, separator: ' ')
+          br
+        - if user_signed_in? && (post.can_modify || post.user == current_user)
+          .controls.btn-group.pull-right
+            = link_to 'edit', edit_post_path(post), class: 'btn btn-mini'
+            = link_to 'delete', post_path(post), class: 'btn btn-mini btn-danger',:method => 'delete',
+            :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }
+    hr
 .pagination.pagination-centered
   = paginate @posts, :window => 2
 = page_entries_info @posts

@@ -25,7 +25,7 @@ html lang="en"
           .navbar
             .navbar-inner
               .container
-                a.brand href="/" Helper Blog
+                a.brand href=root_path Helper Blog
                 .nav-collapse.collapse.navbar-responsive-collapse
                   p.navbar-text.pull-right
                     - if user_signed_in?
@@ -33,8 +33,9 @@ html lang="en"
                     - else
                       = link_to 'Login', new_user_session_path, :class => "navbar-link"
                   ul.nav
-                    li.active
-                      a href="posts/tags" Tags
+                    = nav_link_to "Tags", tags_posts_path
+                    = nav_link_to "New post", new_post_path
+                    
                   form.navbar-search.pull-right action=search_posts_path
                     input.search-query.span2#menu-search type="text" placeholder="Search" name="search" 
 
