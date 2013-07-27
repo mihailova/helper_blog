@@ -14,6 +14,10 @@
     == @post.text
   .tags
       = @post.tags.join(', ')
+  .pictures
+    - @post.pictures.each do |picture|
+      = picture.caption
+      = image_tag picture.image.url
   
 
   - if  user_signed_in? && (@post.can_modify || @post.user == current_user)
@@ -22,12 +26,19 @@
       = link_to 'delete', post_path(@post), class: 'btn btn-mini btn-danger',:method => 'delete',
                 :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }
 
-.addthis_toolbox.addthis_default_style addthis:title=@post.title addthis:description=strip_tags(@post.text).truncate(100, separator: ' ')
-  a.addthis_button_facebook_like fb:like:layout="button_count"
-  a.addthis_button_tweet
-  a.addthis_button_google_plusone g:plusone:size="medium"
-  a.addthis_button_linkedin_counter
-  a.addthis_counter.addthis_pill_style
+    
+.social_shares
+  .addthis_toolbox.addthis_default_style addthis:title=@post.title addthis:description=strip_tags(@post.text).truncate(100, separator: ' ')
+    a.addthis_button_facebook_like fb:like:layout="button_count"
+    a.addthis_button_tweet
+    a.addthis_button_google_plusone g:plusone:size="medium"
+    a.addthis_button_linkedin_counter
+    a.addthis_counter.addthis_pill_style
+
+#comments
+  = render @post.comments.order('created_at')
+
+= render :partial => '/comments/form'
 
 javascript:
   var addthis_config = {"data_track_addressbar":true};

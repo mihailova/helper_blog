@@ -1,0 +1,8 @@
+.comment-form
+  div[class=comments_form_class(@comment)]
+    = simple_form_for(@comment, :url => comments_form_url(@post, @comment), remote: true) do |f|
+   
+      .inputs
+        = f.input :text, :label => false
+      .actions
+        = f.button :submit, { class: 'btn btn-primary' }

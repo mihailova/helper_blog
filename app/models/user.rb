@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :rememberable, :trackable
 
   has_many :posts
+  has_many :comments, dependent: :destroy
 
   has_many :changed_posts, class_name: "Post", foreign_key: :last_editor_id
 end

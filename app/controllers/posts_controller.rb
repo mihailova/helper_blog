@@ -13,7 +13,7 @@ class PostsController < ApplicationController
   def create
     @post = current_user.posts.new
     current_user.changed_posts << @post
-
+    
     if @post.update_attributes(post_params)
       redirect_to post_path(@post), notice:  "Post has been successfully created."
     else
@@ -23,6 +23,7 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
+    @comment = Comment.new
     if @post.private && !user_signed_in?
       redirect_to new_user_session_path, notice: "Have to login to see private posts"
     end
@@ -71,9 +72,10 @@ class PostsController < ApplicationController
   private
 
     def post_params
-      parameters = params.require(:post).permit(:title, :text, :tags, :private, :can_modify)
+      parameters = params.require(:post).permit(:title, :text, :tags, :private, :can_modify, :pictures_attributes => [:caption, :image] )
       parameters[:tags] = parameters[:tags].split(/[\s,]+/) if parameters[:tags].kind_of? String 
       parameters
     end
- 
+
+     
 end

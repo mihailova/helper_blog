@@ -53,5 +53,6 @@ EOF
     updated_at {Time.now}
     association :user, factory: :user
     association :last_editor, factory: :user
+    pictures {[FactoryGirl.create(:picture)]}
   end
 end

@@ -8,6 +8,7 @@ require "paperclip/matchers"
 
 include Warden::Test::Helpers
 include ActionView::Helpers::DateHelper
+include ActionDispatch::TestProcess
 Warden.test_mode!
 
 # Requires supporting ruby files with custom matchers and macros, etc,
@@ -47,4 +48,6 @@ RSpec.configure do |config|
   config.order = "random"
 
   config.include Paperclip::Shoulda::Matchers
+
+  
 end

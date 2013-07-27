@@ -1,7 +1,18 @@
-= simple_form_for @post do |f|
+= simple_form_for @post, :html => { :multipart => true }  do |f|
   = f.input :title, input_html: { class: 'span8' }
   = f.input :text, input_html: { class: 'span12' }
   = f.input :tags, input_html: { value: @post.tags.join(' '), class: 'span8' }
   = f.input :private
   = f.input :can_modify
+  .pictures
+  button#add-picture Add Picture
+  br
+  br
+  - unless @post.new_record?
+  	- @post.pictures.each do |picture|
+  	  = div_for picture
+  	  	= image_tag picture.image.url
+  	  	= link_to 'delete', picture_path(picture), class: 'btn btn-mini btn-danger',:method => 'delete', remote: true
+                
   = f.submit
+

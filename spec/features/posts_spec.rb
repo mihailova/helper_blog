@@ -114,10 +114,15 @@ describe 'Posts' do
             fill_in 'post_text', with: post.text
             fill_in 'post_tags', with: 'new'
             check 'post_private'
-
             click_on 'Create Post'
           end
         end.to change { Post.count }.by(1)
+      end
+
+      it 'can add pictures' do
+        within('form.post') do
+          expect(page).to have_selector('button#add-picture') 
+        end
       end
     end
 
@@ -168,6 +173,16 @@ describe 'Posts' do
         within('.post') do
           expect(page).to have_content SanitizeHelper.new.strip_tags(post.text)
         end
+      end
+
+      it 'content picture caption' do
+        within('.post .pictures') do
+          expect(page).to have_content post.pictures.first.caption
+        end
+      end
+
+      it 'content picture image' do
+        expect(page).to have_css ('img[src*="' + post.pictures.first.image.url + '"]')
       end
 
       it 'content creator name' do
