@@ -9,7 +9,7 @@
       
     p.text
       = comment.text 
-    - if current_user == comment.user
+    - if user_signed_in? && current_user == comment.user
       .actions.controls.btn-group.pull-left
         = link_to 'edit', edit_post_comment_path(@post, comment), remote: true, class: 'btn btn-mini'
         = link_to 'delete', post_comment_path(@post, comment), :method => 'delete', remote: true, class: 'btn btn-mini btn-danger'

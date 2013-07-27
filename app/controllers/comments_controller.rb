@@ -2,6 +2,7 @@ class CommentsController < ApplicationController
   before_action :set_comment, only: [:edit, :update, :destroy]
   before_action :set_post
   before_filter :authenticate_user!
+  before_filter :is_author?, only: [:edit, :update, :destroy]
 
   def edit
     respond_to do |format|
@@ -48,5 +49,9 @@ class CommentsController < ApplicationController
     def comment_params
       parameters = params.require(:comment).permit(:text)
       parameters.merge!({post_id: @post.id, user_id: current_user.id})
+    end
+    
+    def is_author?
+      @comment.user == current_user
     end
 end
