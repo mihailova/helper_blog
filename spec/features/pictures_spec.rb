@@ -14,7 +14,7 @@ describe 'Pictures' do
 
       after(:each) { Warden.test_reset!  }
 
-      it 'content delete picture link' do
+      it 'contain delete picture link' do
         within ('.post .picture') do
           expect(page).to have_link "delete", picture_path(post.pictures.first)
         end

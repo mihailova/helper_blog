@@ -51,7 +51,7 @@ describe 'Posts' do
         end
       end
 
-      it 'title links to post#show' do
+      it 'contain title links to post#show' do
         within("div.posts") do
           expect(page).to have_link post.title, post_path(post)
         end
@@ -163,47 +163,47 @@ describe 'Posts' do
     context 'user not logged' do
       before { visit post_path(post)}
 
-      it 'content post title' do
+      it 'contain post title' do
         within('.post') do
           expect(page).to have_content post.title
         end
       end
 
-      it 'content post text' do
+      it 'contain post text' do
         within('.post') do
           expect(page).to have_content SanitizeHelper.new.strip_tags(post.text)
         end
       end
 
-      it 'content picture caption' do
+      it 'contain picture caption' do
         within('.post .pictures') do
           expect(page).to have_content post.pictures.first.caption
         end
       end
 
-      it 'content picture image' do
+      it 'contain picture image' do
         expect(page).to have_css ('img[src*="' + post.pictures.first.image.url(:large) + '"]')
       end
 
-      it 'content creator name' do
+      it 'contain creator name' do
         within('.post') do
           expect(page).to have_content post.user.name
         end
       end
 
-      it 'content created_at date' do
+      it 'contain created_at date' do
         within('.post') do
           expect(page).to have_content time_ago_in_words(post.created_at)
         end
       end
 
-       it 'content last editor name' do
+       it 'contain last editor name' do
         within('.post') do
           expect(page).to have_content post.last_editor.name
         end
       end
 
-      it 'content updated_at date' do
+      it 'contain updated_at date' do
         within('.post') do
           expect(page).to have_content time_ago_in_words(post.updated_at)
         end
