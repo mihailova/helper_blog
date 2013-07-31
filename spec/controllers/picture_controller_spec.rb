@@ -3,10 +3,11 @@ require 'spec_helper'
 describe PicturesController do
 
   describe "DELETE 'destroy'" do
-    let!(:post) {FactoryGirl.create(:post)}
-    it "returns http success" do
-      xhr :delete, :destroy, {:id => post.pictures.first.id}
-            response.should be_success
+    let!(:picture) {FactoryGirl.create(:picture)}
+    it "delete picture" do
+      expect do
+        xhr :delete, :destroy, {:id => picture.id}
+      end.to change(Picture, :count).by(-1)
     end
   end
 

@@ -3,6 +3,6 @@
 FactoryGirl.define do
   factory :picture do
     caption "Picture Caption"
-    image { fixture_file_upload(Rails.root.join('spec', 'photos', 'images.jpg'), 'image/jpg') }
+    #image { fixture_file_upload(Rails.root.join('spec', 'photos', 'images.jpg'), 'image/jpg') }
   end
 end
