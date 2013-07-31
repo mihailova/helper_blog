@@ -59,7 +59,7 @@ gem 'simple_form'
 gem 'slim-rails'
 gem "paperclip", "~> 3.0"
 
-gem 'devise'
+gem 'devise', '~> 3.0.0'
 
 group :development do
   gem "better_errors"
