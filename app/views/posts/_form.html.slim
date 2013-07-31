@@ -1,7 +1,7 @@
 = simple_form_for @post, :html => { :multipart => true }  do |f|
   = f.input :title, input_html: { class: 'span8' }
   = f.input :text, input_html: { class: 'span12' }
-  = f.input :tags, input_html: { value: @post.tags.join(' '), class: 'span8' }
+  = f.input :tags, input_html: { value: @post.tags.try(:join, " "), class: 'span8' }
   = f.input :private
   - if @post.new_record? || @post.user == current_user
     = f.input :can_modify
