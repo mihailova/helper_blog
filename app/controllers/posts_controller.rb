@@ -1,9 +1,9 @@
 class PostsController < ApplicationController
-  before_filter :authenticate_user!, :except => [:index, :show, :search]
+  before_filter :authenticate_user!, :except => [:index, :show, :search, :sort]
 
   def index
-    @posts =  Post.all.page(params[:page]).per(10)
-
+      @posts = Post.sort_by(params[:sort])
+      @posts = @posts.kind_of?(Array) ? Kaminari.paginate_array(@posts).page(params[:page]).per(10) : @posts.page(params[:page]).per(10)
   end
 
   def new
@@ -59,7 +59,6 @@ class PostsController < ApplicationController
     @posts = Kaminari.paginate_array(Post.searchAll(params[:search])).page(params[:page]).per(10)
     render :index
   end
-
 
   private
 

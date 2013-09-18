@@ -8,7 +8,7 @@ describe CommentsController do
   end
 
   after(:each) { sign_out user  }
-  let(:valid_attributes) { {text: "Some text"} }
+  let(:valid_attributes) { {text: "Some text", rating: 1} }
   let!(:comment) { FactoryGirl.create(:comment, user: user) }
   
   describe "GET edit" do

@@ -4,5 +4,6 @@
    
       .inputs
         = f.input :text, :label => false
+        = f.input :rating, collection: (1..5).to_a.reverse, include_blank: false
       .actions
         = f.button :submit, { class: 'btn btn-primary' }

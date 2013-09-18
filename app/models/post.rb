@@ -1,6 +1,7 @@
 class Post < ActiveRecord::Base
   validates :title, presence: true, uniqueness: true
   validates :text, presence: true
+  validates :user_id, presence: true
 
   belongs_to :user
   belongs_to :last_editor, class_name: "User", foreign_key: :last_editor_id
@@ -11,8 +12,25 @@ class Post < ActiveRecord::Base
 
   accepts_nested_attributes_for :pictures, :allow_destroy => true
 
+  scope :sort_by, ->(sort_query = nil) do 
+    if sort_query == "title"
+      order("title ASC")
+    elsif sort_query == "rating"
+      where("posts.id in (select post_id from comments)").group('posts.id').joins(:comments).order('AVG(comments.rating) DESC') + 
+      includes(:comments).where("comments.id is NULL")
+    elsif sort_query == "author"
+      joins(:user).order('users.name ASC')
+    else
+      all
+    end
+    end
+
   def canEdit? (current_user = nil)
   	  self.can_modify || ( current_user and self.user == current_user )
+  end
+
+  def rating
+    self.comments.average(:rating).to_i
   end
 
   def self.searchAll (key_word)

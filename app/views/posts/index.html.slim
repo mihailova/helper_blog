@@ -1,3 +1,10 @@
+.sorts
+  = link_to "Sort by Title", posts_path(sort: "title")
+  = link_to "Sort by Rating", posts_path(sort: "rating")
+  = link_to "Sort by Author", posts_path(sort: "author")
+
+
+
 .posts
   - @posts.each do |post|
     - if post.private
