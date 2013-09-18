@@ -3,4 +3,6 @@
 <% else %>
   $('div#comments').append("<%= escape_javascript(render @comment) %>");
   $('#comment_text').val("");
+  $("#add_comment").removeClass("invisible")
+  $('#new-comment').addClass("invisible")
 <% end %>

@@ -41,7 +41,9 @@
 #comments
   = render @post.comments.order('created_at')
 - if user_signed_in?
-  = render :partial => '/comments/form'
+  button#add_comment.btn.btn-primary Add comment
+  #new-comment.invisible
+    = render :partial => '/comments/form'
 
 javascript:
   var addthis_config = {"data_track_addressbar":true};

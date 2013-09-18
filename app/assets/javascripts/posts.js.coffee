@@ -3,6 +3,10 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 num_of_pics=0
 $ ->
+  $('#add_comment').click () ->
+    $(this).addClass("invisible")
+    $('#new-comment').removeClass("invisible")
+
   $(".chosen-select").chosen()
   $('.post textarea#post_text').wysihtml5
     'font-styles': true
