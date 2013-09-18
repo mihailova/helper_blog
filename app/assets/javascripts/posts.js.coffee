@@ -3,6 +3,7 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 num_of_pics=0
 $ ->
+  $(".chosen-select").chosen()
   $('.post textarea#post_text').wysihtml5
     'font-styles': true
     emphasis: true

@@ -7,32 +7,7 @@ end
 
 describe 'Posts' do
   let(:post) { FactoryGirl.create(:post) }
-
-  context '#tags' do
-    before do
-      @tag = post.tags.first
-      visit tags_posts_path
-    end
-
-    it 'contain tag link' do
-      within('.tags') do
-        expect(page).to have_link @tag, posts_serach_by_tag_path(@tag)
-      end
-    end
-
-    describe '#search_by_tag' do
-      before do
-        within('.tags') do
-          click_link @tag
-        end
-      end
-
-      it 'show all posts with current tag' do
-        expect(page).to have_content post.title
-      end
-    end
-  end
-  
+ 
   context '#index' do
     before { @post = post }
 
@@ -99,6 +74,7 @@ describe 'Posts' do
 
     context 'user logged' do
       let(:user) { FactoryGirl.create(:user) }
+      let!(:tag) { FactoryGirl.create(:tag) }
 
       before :each do
         login_as(user, :scope => :user)
@@ -112,7 +88,7 @@ describe 'Posts' do
           within('form.post') do
             fill_in 'post_title', with: post.title
             fill_in 'post_text', with: post.text
-            fill_in 'post_tags', with: 'new'
+            select(tag.name, :from => 'post_tag_ids')
             check 'post_private'
             click_on 'Create Post'
           end
@@ -289,6 +265,7 @@ describe 'Posts' do
     context "logged" do
       let(:user) { FactoryGirl.create(:user) }
       let(:post) { FactoryGirl.create(:post) }
+      let!(:tag) { FactoryGirl.create(:tag) }
       
 
       before :each do
@@ -299,7 +276,7 @@ describe 'Posts' do
         within("form.post") do
           fill_in 'post_title', with: "New Title"
           fill_in 'post_text', with: 'New Body text'
-          fill_in 'post_tags', with: 'az ti'
+          select(tag.name, :from => 'post_tag_ids')
           check 'post_private'
 
           click_on 'Update Post'
@@ -318,8 +295,7 @@ describe 'Posts' do
 
       it 'tags is changed' do
         within '.post .tags' do
-          expect(page).to have_content "az"
-          expect(page).to have_content "ti"
+          expect(page).to have_content tag.name
         end
       end
 

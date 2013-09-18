@@ -14,7 +14,8 @@
     == @post.text
   .tags
     span.label Tags:
-    = @post.tags.join(', ')
+    - @post.tags.each do |tag|
+      = tag.name
   .pictures
     - @post.pictures.each do |picture|
       = image_tag picture.image.url(:large), class: "img-rounded"

@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_filter :authenticate_user!, :except => [:index, :show, :search, :tags, :serach_by_tag]
+  before_filter :authenticate_user!, :except => [:index, :show, :search]
 
   def index
     @posts =  Post.all.page(params[:page]).per(10)
@@ -60,21 +60,11 @@ class PostsController < ApplicationController
     render :index
   end
 
-  def tags
-    @tags = Post.select(:tags).map(&:tags).flatten.uniq
-  end
-
-  def serach_by_tag
-    @posts = Kaminari.paginate_array(Post.search_by_tags(params[:tag])).page(params[:page]).per(10)
-    render :index
-  end
 
   private
 
     def post_params
-      parameters = params.require(:post).permit(:title, :text, :tags, :private, :can_modify, :pictures_attributes => [:caption, :image] )
-      parameters[:tags] = parameters[:tags].split(/[\s,]+/) if parameters[:tags].kind_of? String 
-      parameters
+      parameters = params.require(:post).permit(:title, :text, :tags, :private, :can_modify, {tag_ids: []}, :pictures_attributes => [:caption, :image] )
     end
 
      

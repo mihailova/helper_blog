@@ -16,4 +16,8 @@
 //= require turbolinks
 //= require libs/wysihtml5-0.3.0
 //= require libs/bootstrap-wysihtml5-0.0.2
+//= require libs/chosen.jquery.js
+//= require libs/chosen.jquery.min.js
+//= require libs/chosen.proto.js
+//= require libs/chosen.proto.min.js
 //= require_tree .

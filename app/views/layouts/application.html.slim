@@ -33,7 +33,7 @@ html lang="en"
                     - else
                       = link_to 'Login', new_user_session_path, :class => "navbar-link"
                   ul.nav
-                    = nav_link_to "Tags", tags_posts_path
+                    = nav_link_to "Tags", tags_path
                     - if user_signed_in?
                       = nav_link_to "New post", new_post_path
                     
