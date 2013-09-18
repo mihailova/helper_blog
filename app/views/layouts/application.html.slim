@@ -34,7 +34,8 @@ html lang="en"
                       = link_to 'Login', new_user_session_path, :class => "navbar-link"
                   ul.nav
                     = nav_link_to "Tags", tags_posts_path
-                    = nav_link_to "New post", new_post_path
+                    - if user_signed_in?
+                      = nav_link_to "New post", new_post_path
                     
                   form.navbar-search.pull-right action=search_posts_path
                     input.search-query.span2#menu-search type="text" placeholder="Search" name="search" 
