@@ -1,7 +1,13 @@
 .sorts
-  = link_to "Sort by Title", posts_path(sort: "title")
-  = link_to "Sort by Rating", posts_path(sort: "rating")
-  = link_to "Sort by Author", posts_path(sort: "author")
+  ul.nav.nav-pills
+    li 
+      span.label.label-info Sort by
+    li
+      = link_to "Title", posts_path(sort: "title")
+    li
+      = link_to "Rating", posts_path(sort: "rating")
+    li
+      = link_to "Author", posts_path(sort: "author")
 
 
 
@@ -28,3 +34,11 @@
 .pagination.pagination-centered
   = paginate @posts, :window => 2
 = page_entries_info @posts
+
+= simple_form_for @filter, {:url => posts_path, :method => :get} do |f|
+  = f.collection_check_boxes :tags, Filter::Tag.all, :id, :name
+  = f.collection_check_boxes :authors, Filter::Author.all, :id, :name
+  = f.input :private, :as => :boolean, :input_html => { :checked => @filter.private=="1" ? "checked" : "" }
+  = f.submit Filter
+
+
