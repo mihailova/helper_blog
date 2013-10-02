@@ -12,6 +12,7 @@ require "sprockets/railtie"
 Bundler.require(:default, Rails.env)
 
 
+
 config_file = File.expand_path('../application.yml', __FILE__)
 if File.file?(config_file)
   config = YAML.load(File.read(config_file))
@@ -36,6 +37,7 @@ module HelperBlog
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
+    config.autoload_paths += %W(#{config.root}/app/services)
 
     config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
   end
