@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131002155634) do
+ActiveRecord::Schema.define(version: 20131003215834) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,6 +52,8 @@ ActiveRecord::Schema.define(version: 20131002155634) do
     t.integer  "last_editor_id"
     t.boolean  "can_modify",     default: true
     t.text     "tags_ids",                      array: true
+    t.integer  "comments_count", default: 0
+    t.float    "avg_rating",     default: 0.0
   end
 
   add_index "posts", ["last_editor_id"], name: "index_posts_on_last_editor_id", using: :btree

@@ -15,11 +15,13 @@ class Post < ActiveRecord::Base
   accepts_nested_attributes_for :pictures, :allow_destroy => true
 
   scope :sort_by, ->(sort_query = nil) do 
+    #TODO: refactoring 
     if sort_query == "title"
       order("title ASC")
     elsif sort_query == "rating"
-      where("posts.id in (select post_id from comments)").group('posts.id').joins(:comments).order('AVG(comments.rating) DESC') + 
-      includes(:comments).where("comments.id is NULL")
+      order("avg_rating DESC")
+    elsif sort_query == 'comments'
+      order("comments_count DESC")
     elsif sort_query == "author"
       joins(:user).order('users.name ASC')
     else
@@ -68,8 +70,9 @@ class Post < ActiveRecord::Base
   	  self.can_modify || ( current_user and self.user == current_user )
   end
 
-  def rating
-    self.comments.average(:rating).to_i
+  def set_rating
+    self.avg_rating = self.comments.average(:rating).to_f.round(2)
+    self.save
   end
 
   def self.searchAll (key_word)

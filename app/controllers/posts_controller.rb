@@ -2,15 +2,9 @@ class PostsController < ApplicationController
   before_filter :authenticate_user!, :except => [:index, :show, :search, :sort]
 
   def index
-      @posts = Post.filter(params[:filter] || {}).sort_by(params[:sort])
-      @posts = @posts.kind_of?(Array) ? Kaminari.paginate_array(@posts).page(params[:page]).per(10) : @posts.page(params[:page]).per(10)
-      @filter = Filter.new(params[:filter] || {}, true)
-      
-
-      #MOVE to filter.rb 
-      #Filter::Tag.all = Tag.all
-      #Filter::Author.all = User.all
-
+    @posts = Post.filter(params[:filter] || {}).sort_by(params[:sort]).page(params[:page]).per(10)
+    #@posts = @posts.kind_of?(Array) ? Kaminari.paginate_array(@posts).page(params[:page]).per(10) : @posts.page(params[:page]).per(10)
+    @filter = Filter.new(params[:filter] || {}, true)
   end
 
   def new
