@@ -31,6 +31,48 @@ describe Post do
 		end
 	end
 
+	describe "Count posts" do 
+		context "by tag" do
+			let(:post_1) { FactoryGirl.create(:post)}
+			let(:tag) {FactoryGirl.create(:tag)}
+			let!(:post_2) { FactoryGirl.create(:post)}
+
+			before do
+				post_1.tags << tag
+				post_2.tags << tag
+				post_1.save
+				post_2.save
+				@hash = {[tag.name, tag.id]=>2, [post_1.tags.first.name, post_1.tags.first.id]=>1, [post_2.tags.first.name, post_2.tags.first.id]=>1}
+			end
+
+			it "count post by tag" do 
+				expect(Post.count_posts_by_tags(Post.all)).to eq @hash
+			end 
+		end
+
+		context "by author" do
+			let(:user_1) { FactoryGirl.create(:user)}
+			let(:user_2) { FactoryGirl.create(:user)}
+			let(:post_2) { FactoryGirl.create(:post, user: user_2)}
+			let(:post_1) { FactoryGirl.create(:post, user: user_1)}
+
+			before { @hash = {[post_2.user.name, post_2.user.id]=>1, [post_1.user.name, post_1.user.id]=>1} }
+
+			it "count post by author" do 
+				expect(Post.count_posts_by_authors(Post.all)).to eq @hash
+			end 
+		end
+
+		context "by private" do 
+			let!(:post_2) { FactoryGirl.create(:post, private: true)}
+			let!(:post_1) { FactoryGirl.create(:post, private: true)}
+
+			it "count private posts" do 
+				expect(Post.count_private_posts(Post.all)).to eq 2
+			end 
+		end
+	end
+
 	describe "filter" do
 		context "by tags" do 
 			let(:post_1) { FactoryGirl.create(:post)}
