@@ -3,13 +3,13 @@
     li 
       span.label.label-info Sort by
     li
-      = link_to "Title", posts_path(sort: "title")
+      = link_to "Title", posts_path(sort: "title", filter: params[:filter])
     li
-      = link_to "Rating", posts_path(sort: "rating")
+      = link_to "Rating", posts_path(sort: "rating", filter: params[:filter])
     li
-      = link_to "Comments", posts_path(sort: "comments")
+      = link_to "Comments", posts_path(sort: "comments", filter: params[:filter])
     li
-      = link_to "Author", posts_path(sort: "author")
+      = link_to "Author", posts_path(sort: "author", filter: params[:filter])
 
 
 
