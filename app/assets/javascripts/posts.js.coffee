@@ -3,6 +3,11 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 num_of_pics=0
 $ ->
+
+  $(document).on 'change', '#new_filter', (e)->
+    $("#new_filter").submit()
+
+
   $('#add_comment').click () ->
     $(this).addClass("invisible")
     $('#new-comment').removeClass("invisible")

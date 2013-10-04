@@ -35,11 +35,11 @@ class Post < ActiveRecord::Base
   #scope :count_posts_by_tags, -> (limit=100) { joins(:tags).order('count(*) desc').limit(limit).group(['tags.name', 'tags.id']).count }
   #scope :count_posts_by_authors, -> (limit=100) { joins(:user).order('count(*) desc').limit(limit).group(['users.name', 'users.id']).count }
 
-  def self.filter(filters)
+  def self.filter(filters, count={})
     alter_filters(filters)
     posts = Post.all
-    posts = posts.filter_by_tags(filters[:tags]) if filters[:tags]
-    posts = posts.filter_by_authors(filters[:authors]) if filters[:authors]
+    posts = posts.filter_by_tags(filters[:tags]) if !count[:tags] and filters[:tags]
+    posts = posts.filter_by_authors(filters[:authors]) if !count[:authors] and filters[:authors]
     posts = posts.privates if filters[:private]
     posts
   end
@@ -50,6 +50,10 @@ class Post < ActiveRecord::Base
 
   def self.count_posts_by_authors(posts, limit=100)
     posts.joins(:user).order('count(*) desc').limit(limit).group(['users.name', 'users.id']).count
+  end
+
+  def self.count_private_posts(posts)
+    posts.where(private: true).size
   end
 
 
