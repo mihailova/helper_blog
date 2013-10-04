@@ -3,8 +3,7 @@ class PostsController < ApplicationController
 
   def index
     @posts = Post.filter(params[:filter] || {}).sort_by(params[:sort]).page(params[:page]).per(10)
-    #@posts = @posts.kind_of?(Array) ? Kaminari.paginate_array(@posts).page(params[:page]).per(10) : @posts.page(params[:page]).per(10)
-    @filter = Filter.new(params[:filter] || {}, true)
+    @filter = Filter.new(params[:filter] || {}, true, current_user.try(:id))
   end
 
   def new

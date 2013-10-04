@@ -42,5 +42,7 @@
   = f.collection_check_boxes :authors, Filter::Author.all, :id, :name
   = f.input :private, :as => :boolean, :input_html => { :checked => @filter.private=="1" ? "checked" : "" }, label: "Private(#{@filter.private_posts_count})"
 
+  
+
 
 
