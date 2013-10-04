@@ -17,17 +17,17 @@ describe Post do
               allow_destroy(true)}
 
 	describe "searchALL" do
-		let(:post) { FactoryGirl.create(:post, title: "Some title")}
+		let!(:post) { FactoryGirl.create(:post, title: "Some title")}
 		let(:tag) { FactoryGirl.create(:tag, name: "Tag_name")}
 		
 		it "can search posts by keyword" do
-			expect([post]).to eq Post.searchAll("Some")
+			expect(Post.searchAll("Some")).to eq [post]
 		end
 
 		it "can search posts by tag keyword" do
 			post.tags << tag
 			post.save
-			expect([post]).to eq Post.searchAll("Tag_n")
+			expect(Post.searchAll("Tag_n")).to eq [post]
 		end
 	end
 
@@ -85,7 +85,7 @@ describe Post do
 			end
 
 			it "filter post by tag" do 
-				expect([post_1]).to eq Post.filter({tags: [tag.id.to_s]})
+				expect(Post.filter({tags: [tag.id.to_s]})).to eq [post_1]
 			end 
 		end
 
@@ -96,7 +96,7 @@ describe Post do
 			let(:post_1) { FactoryGirl.create(:post, user: user_1)}
 
 			it "filter post by authors" do 
-				expect([post_1]).to eq Post.filter({authors: [user_1.id.to_s]})
+				expect(Post.filter({authors: [user_1.id.to_s]})).to eq [post_1]
 			end
 		end
 
@@ -105,7 +105,7 @@ describe Post do
 			let(:private_post) { FactoryGirl.create(:post, private: true)}
 
 			it "filter by private" do
-				expect([private_post]).to eq Post.filter({private: "1"})
+				expect(Post.filter({private: "1"})).to eq [private_post]
 			end
 		end
 	end
@@ -116,7 +116,7 @@ describe Post do
 			let(:post_first) { FactoryGirl.create(:post, title: "A")}
 
 			it "sort by title" do
-				expect([post_first, post_last]).to eq Post.sort_by('title')
+				expect(Post.sort_by('title')).to eq [post_first, post_last]
 			end
 		end
 
@@ -125,7 +125,7 @@ describe Post do
 			let(:comment) { FactoryGirl.create(:comment)}
 
 			it "sort by comments count" do
-				expect([comment.post, post_last]).to eq Post.sort_by('comments')
+				expect(Post.sort_by('comments')).to eq [comment.post, post_last]
 			end
 		end
 
@@ -134,7 +134,7 @@ describe Post do
 			let(:comment_first) { FactoryGirl.create(:comment, rating: 5)}
 
 			it "sort by avg rating" do
-				expect([comment_first.post, comment_last.post]).to eq Post.sort_by('rating')
+				expect(Post.sort_by('rating')).to eq [comment_first.post, comment_last.post]
 			end
 		end
 
@@ -145,7 +145,7 @@ describe Post do
 			let(:post_first) { FactoryGirl.create(:post, user: user_first)}
 
 			it "sort by author's name" do
-				expect([post_first, post_last]).to eq Post.sort_by('author')
+				expect(Post.sort_by('author')).to eq [post_first, post_last]
 			end
 		end
 	end
