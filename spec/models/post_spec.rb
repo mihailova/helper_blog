@@ -30,4 +30,45 @@ describe Post do
 			expect([post]).to eq Post.searchAll("Tag_n")
 		end
 	end
+
+
+	describe "Sort_by" do
+		context "title" do 
+			let(:post_last) { FactoryGirl.create(:post, title: "B")}
+			let(:post_first) { FactoryGirl.create(:post, title: "A")}
+
+			it "sort by title" do
+				expect([post_first, post_last]).to eq Post.sort_by('title')
+			end
+		end
+
+		context "comments count" do 
+			let(:post_last) { FactoryGirl.create(:post)}
+			let(:comment) { FactoryGirl.create(:comment)}
+
+			it "sort by comments count" do
+				expect([comment.post, post_last]).to eq Post.sort_by('comments')
+			end
+		end
+
+		context "rating" do 
+			let(:comment_last) { FactoryGirl.create(:comment, rating: 2)}
+			let(:comment_first) { FactoryGirl.create(:comment, rating: 5)}
+
+			it "sort by avg rating" do
+				expect([comment_first.post, comment_last.post]).to eq Post.sort_by('rating')
+			end
+		end
+
+		context "author" do 
+			let(:user_first) { FactoryGirl.create(:user, name: "A")}
+			let(:user_last) { FactoryGirl.create(:user, name: "B")}
+			let(:post_last) { FactoryGirl.create(:post, user: user_last)}
+			let(:post_first) { FactoryGirl.create(:post, user: user_first)}
+
+			it "sort by author's name" do
+				expect([post_first, post_last]).to eq Post.sort_by('author')
+			end
+		end
+	end
 end
