@@ -21,10 +21,8 @@ class TagsController < ApplicationController
   end
 
   def show
-    params[:filter] = params[:filter] ? params[:filter].merge!({tags: [@tag.id.to_s]}) : {tags: [@tag.id.to_s]}
-    @posts = Post.filter(params[:filter] || {}).sort_by(params[:sort])
-    @posts = @posts.kind_of?(Array) ? Kaminari.paginate_array(@posts).page(params[:page]).per(10) : @posts.page(params[:page]).per(10)
-    @filter = Filter.new(params[:filter] || {}, true)
+    @posts = @tag.posts.page(params[:page]).per(10)
+    @filter = Filter.new({tags: [@tag.id.to_s]} || {}, true)
     render "posts/index"
   end
 
