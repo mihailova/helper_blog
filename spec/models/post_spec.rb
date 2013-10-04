@@ -31,6 +31,42 @@ describe Post do
 		end
 	end
 
+	describe "filter" do
+		context "by tags" do 
+			let(:post_1) { FactoryGirl.create(:post)}
+			let(:tag) {FactoryGirl.create(:tag)}
+			let!(:post_2) { FactoryGirl.create(:post)}
+
+			before do
+				post_1.tags << tag
+				post_1.save
+			end
+
+			it "filter post by tag" do 
+				expect([post_1]).to eq Post.filter({tags: [tag.id.to_s]})
+			end 
+		end
+
+		context "by authors" do 
+			let(:user_1) { FactoryGirl.create(:user)}
+			let(:user_2) { FactoryGirl.create(:user)}
+			let!(:post_2) { FactoryGirl.create(:post, user: user_2)}
+			let(:post_1) { FactoryGirl.create(:post, user: user_1)}
+
+			it "filter post by authors" do 
+				expect([post_1]).to eq Post.filter({authors: [user_1.id.to_s]})
+			end
+		end
+
+		context "by private" do 
+			let!(:post) { FactoryGirl.create(:post)}
+			let(:private_post) { FactoryGirl.create(:post, private: true)}
+
+			it "filter by private" do
+				expect([private_post]).to eq Post.filter({private: "1"})
+			end
+		end
+	end
 
 	describe "Sort_by" do
 		context "title" do 
