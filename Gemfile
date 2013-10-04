@@ -23,6 +23,8 @@ gem 'kaminari'
 
 gem 'textacular', "~> 3.0", require: 'textacular/rails'
 
+gem "recaptcha", :require => "recaptcha/rails"
+
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 

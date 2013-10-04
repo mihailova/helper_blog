@@ -13,7 +13,7 @@ class CommentsController < ApplicationController
 
   def create
     @comment = Comment.new(comment_params)
-    if @comment.save
+    if verify_recaptcha && @comment.save
       respond_to do |format|
         format.js
       end
