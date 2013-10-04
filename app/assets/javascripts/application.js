@@ -21,4 +21,5 @@
 //= require libs/chosen.jquery.min.js
 //= require libs/chosen.proto.js
 //= require libs/chosen.proto.min.js
+//= require libs/jquery.ui.autocomplete.js
 //= require_tree .

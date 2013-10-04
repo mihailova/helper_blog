@@ -57,6 +57,7 @@ class PostsController < ApplicationController
 
   def search
     @posts = Kaminari.paginate_array(Post.searchAll(params[:search])).page(params[:page]).per(10)
+    @filter = Filter.new({}, true, current_user.try(:id))
     render :index
   end
 
