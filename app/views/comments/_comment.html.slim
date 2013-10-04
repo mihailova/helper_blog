@@ -2,7 +2,7 @@
 = div_for comment do 
   .well
     p.info.pull-right
-      = "Before #{time_ago_in_words (comment.created_at)} by #{comment.user.name}"
+      = "Before #{time_ago_in_words (comment.created_at)} by #{comment.user.try(:name) || 'guest'}"
       - if comment.updated?
         br
         = "Updated before #{time_ago_in_words (comment.updated_at)}"

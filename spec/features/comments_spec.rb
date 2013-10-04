@@ -61,8 +61,8 @@ describe 'Comments' do
   context "not logged user" do
     before {visit post_path(comment.post)}
 
-    it "not contain create comment form" do
-      expect(page).not_to have_selector(".comment-form")
+    it "contain create comment form" do
+      expect(page).to have_selector(".comment-form")
     end
 
     it "contain post's comments" do

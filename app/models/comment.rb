@@ -6,7 +6,6 @@ class Comment < ActiveRecord::Base
   validates :text, presence: true
   validates :rating, presence: true
   validates :rating, inclusion: { in: RATING }
-  validates :user_id, presence: true
   validates :post_id, presence: true
 
   after_save :update_post_avg_rating
