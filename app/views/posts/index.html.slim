@@ -26,6 +26,10 @@
           span.text
             |  - 
             == strip_tags(post.text).truncate(200, separator: ' ')
+          .comments_count
+            = post.comments_count
+          .avg_rating
+            = post.avg_rating
           br
         - if user_signed_in? && (post.can_modify || post.user == current_user)
           .controls.btn-group.pull-right

@@ -16,6 +16,10 @@
     span.label Tags:
     - @post.tags.each do |tag|
       = tag.name
+  .comments_count
+    = @post.comments_count
+  .avg_rating
+    = @post.avg_rating
   .pictures
     - @post.pictures.each do |picture|
       = image_tag picture.image.url(:large), class: "img-rounded"

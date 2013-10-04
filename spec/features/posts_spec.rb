@@ -9,6 +9,7 @@ describe 'Posts' do
   let(:post) { FactoryGirl.create(:post) }
  
   context '#index' do
+    let!(:comment){ FactoryGirl.create(:comment, post: post, rating: 3)}
     before { @post = post }
 
     context 'user not logged' do
@@ -41,6 +42,18 @@ describe 'Posts' do
       it 'not contain edit link' do
         within("div.posts") do
           expect(page).not_to have_link "edit", edit_post_path(post)
+        end
+      end
+
+      it 'contain comments count' do
+        within("div.comments_count") do
+          expect(page).to have_content "1"
+        end
+      end
+
+      it 'contain average rating' do
+        within("div.avg_rating") do
+          expect(page).to have_content "3.0"
         end
       end
     end
@@ -137,6 +150,7 @@ describe 'Posts' do
     end
 
     context 'user not logged' do
+      let!(:comment){ FactoryGirl.create(:comment, post: post, rating: 3)}
       before { visit post_path(post)}
 
       it 'contain post title' do
@@ -185,8 +199,6 @@ describe 'Posts' do
         end
       end
 
-
-
       it 'not contain delete link' do
         within('.post') do
           expect(page).not_to have_link 'delete', post_path(post)
@@ -196,6 +208,18 @@ describe 'Posts' do
       it 'not contain edit link' do
         within('.post') do
           expect(page).not_to have_link 'edit', edit_post_path(post)
+        end
+      end
+
+      it 'contain comments count' do
+        within("div.comments_count") do
+          expect(page).to have_content "1"
+        end
+      end
+
+      it 'contain average rating' do
+        within("div.avg_rating") do
+          expect(page).to have_content "3.0"
         end
       end
 
