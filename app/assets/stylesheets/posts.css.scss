@@ -5,12 +5,67 @@
   }
 
   .text {
+    font-family: 'Alegreya', serif;
+  }
+
+  .well {
+  border: 1px solid #22C8E7;
+  border-left: 0px;
+  border-right: 0px;
+  padding-bottom: 29px;
+  background-color: rgba(11, 187, 221, 0.25);
+
+  .avg_rating{
+    margin-bottom: 18px;
+  }
+
+    .row{ 
+      margin-left: 0px;
+
+      .span1, .span10 {
+        margin-left: 6px;
+      }
+    }
+    
+    a {
+      color: white;
+      &:visited {
+        color: white;
+      }
+      &:hover {
+        color: #22C8E7;
+        
+      }
+    }
+  }
+
+  .text {
     padding-top: 10px;
     font-size: 14px;
   }
 
   .controls {
-    padding-top: 10px;
+    display: none;
+    
+    a {
+      &:visited {
+        color: #333;
+      }
+      font-weight:bolder;
+      font-size: 12px;
+      color: #333;
+      background-image: -webkit-linear-gradient(top, #feffef, #757575);
+      background-image: -moz-linear-gradient(top, #feffef, #757575);
+      background-image: -o-linear-gradient(top, #feffef, #757575);
+      
+      &:hover {
+        color: #333;
+        background-image: -webkit-linear-gradient(top, #757575, #feffef);
+        background-image: -moz-linear-gradient(top, #757575, #feffef);
+        background-image: -o-linear-gradient(top, #757575, #feffef);
+      }
+
+    }
   }
 
   .row {
@@ -19,10 +74,40 @@
 }
 
 .post {
+  background-color: rgba(8, 39, 37, 0.86);
   padding-top: 12px;
   padding-right: 12px;
   padding-bottom: 30px;
   margin-bottom: 5px;
+
+  .controls {
+    bottom: 12px;
+    a {
+      &:visited {
+        color: #333;
+      }
+      font-weight:bolder;
+      font-size: 12px;
+      color: #333;
+      background-image: -webkit-linear-gradient(top, #feffef, #757575);
+      background-image: -moz-linear-gradient(top, #feffef, #757575);
+      background-image: -o-linear-gradient(top, #feffef, #757575);
+      
+      &:hover {
+        color: #333;
+        background-image: -webkit-linear-gradient(top, #757575, #feffef);
+        background-image: -moz-linear-gradient(top, #757575, #feffef);
+        background-image: -o-linear-gradient(top, #757575, #feffef);
+      }
+
+    }
+  }
+
+  .author {
+    background-color: rgba(172, 175, 199, 0.66);
+    border-color: rgb(0, 3, 3);
+    color: rgb(1, 14, 13);
+  }
 
   .pictures {
     margin-top: 15px;
@@ -44,6 +129,7 @@
     padding-top: 10px;
     padding-bottom: 10px;
     font-size: 18px;
+    font-family: 'Alegreya', serif;
   }
 
   .tags {

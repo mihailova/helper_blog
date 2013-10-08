@@ -1,41 +1,51 @@
 .sorts
-  ul.nav.nav-pills
-    li 
-      span.label.label-info Sort by
-    li
-      = link_to "Title", posts_path(sort: "title", filter: params[:filter])
-    li
-      = link_to "Rating", posts_path(sort: "rating", filter: params[:filter])
-    li
-      = link_to "Comments", posts_path(sort: "comments", filter: params[:filter])
-    li
-      = link_to "Author", posts_path(sort: "author", filter: params[:filter])
+  span.sort Sort by:
+
+  = link_to "Title", posts_path(sort: "title", filter: params[:filter])
+  span.verticalLine
+
+  = link_to "Rating", posts_path(sort: "rating", filter: params[:filter])
+  span.verticalLine
+
+  = link_to "Comments", posts_path(sort: "comments", filter: params[:filter])
+  span.verticalLine
+
+  = link_to "Author", posts_path(sort: "author", filter: params[:filter])
+
+
 
 
 
 .posts
   - @posts.each do |post|
+
     - if post.private
       .pull-left
         span.private.label.label-info private
+      br 
     .well.well-small
       .row
+        .span1
+          .comments_count
+            .triangle-isosceles
+              p
+                = post.comments_count
         .span10
+          .avg_rating
+            .show-rating
+              ==rating_stars(post.avg_rating)
           span.title
             = link_to post.title, post_path(post)
           span.text
             |  - 
             == strip_tags(post.text).truncate(200, separator: ' ')
-          .comments_count
-            = post.comments_count
-          .avg_rating
-            = post.avg_rating
+
+          
           br
-        - if user_signed_in? && (post.can_modify || post.user == current_user)
-          .controls.btn-group.pull-right
-            = link_to 'edit', edit_post_path(post), class: 'btn btn-mini'
-            = link_to 'delete', post_path(post), class: 'btn btn-mini btn-danger',:method => 'delete',
-            :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }
+      - if user_signed_in? && (post.can_modify || post.user == current_user)
+        .controls.btn-group.pull-right
+          = link_to "edit <i class='icon-pencil'></i>".html_safe, edit_post_path(post), class: 'btn btn-mini'
+          = link_to "delete <i class='icon-trash'></i>".html_safe, post_path(post), class: 'btn btn-mini',:method => 'delete', :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }
     hr
 .pagination.pagination-centered
   = paginate @posts, :window => 2

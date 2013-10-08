@@ -4,6 +4,12 @@
 num_of_pics=0
 $ ->
 
+  $(document).on 'mouseover', '.posts .well', ->
+    $(this).find('.controls').show()
+
+  $(document).on 'mouseout', '.posts .well', ->
+    $(this).find('.controls').hide()
+
   $(document).on 'change', '#new_filter', (e)->
     $("#new_filter").submit()
 
