@@ -36,4 +36,45 @@ module ApplicationHelper
       end
     end
   end
+
+
+  def menu_link_to(name = nil, path = nil)
+    @request_path ||= RequestCurrentPath.new(request.fullpath)
+
+    content_tag :p, class: "menu #{@request_path.active?(path)}" do
+      content_tag :a, href: path do
+        name
+      end
+    end
+  end
+
+  def set_half_star(i)
+    if i >= 1
+      result = content_tag( :i, '', class: 'icon-star')
+    elsif i <= 0    
+      result = content_tag( :i, '', class: 'icon-star-empty')
+    elsif i == 0.5
+      result = content_tag( :i, '', class: 'icon-star-half-empty')
+    elsif i < 0.5
+      result = content_tag( :i, '', class: 'icon-star-empty')
+    elsif i > 0.5
+      result = content_tag( :i, '', class: 'icon-star')
+    end    
+    result
+  end
+
+
+  def rating_stars(rating)
+    html = ""
+    count = 0
+    if rating == 0
+      html = ""
+    else
+      5.times do
+        html += set_half_star(rating)
+        rating -= 1
+      end
+    end
+    html
+  end
 end
