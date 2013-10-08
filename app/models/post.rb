@@ -83,6 +83,7 @@ class Post < ActiveRecord::Base
   	posts = self.basic_search(key_word)
   	posts += self.fuzzy_search(title: key_word)
   	posts += self.fuzzy_search(text: key_word)
+    posts += self.includes(:user).where(["users.name ILIKE ?", "%#{key_word}%"])
     posts += self.includes(:tags).where(["tags.name ILIKE ?", "%#{key_word}%"])
   	posts.uniq
   end
