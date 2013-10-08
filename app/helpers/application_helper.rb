@@ -85,7 +85,16 @@ module ApplicationHelper
       comment.user_name
     else
       'guest'
+    end   
+  end
+
+  def set_star_rating(rating)
+    html = ""
+    i = 5
+    5.times do
+      html += content_tag(:span, '☆', value: "#{i}", class: rating==i ? "selected" : "")
+      i -=1
     end
-      
+    html.html_safe
   end
 end
