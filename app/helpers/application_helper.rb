@@ -75,6 +75,6 @@ module ApplicationHelper
         rating -= 1
       end
     end
-    html
+    html.html_safe
   end
 end
