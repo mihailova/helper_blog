@@ -77,4 +77,15 @@ module ApplicationHelper
     end
     html.html_safe
   end
+
+  def comment_author(comment)
+    if comment.user
+      comment.user.name
+    elsif comment.user_name and comment.user_name != ""
+      comment.user_name
+    else
+      'guest'
+    end
+      
+  end
 end

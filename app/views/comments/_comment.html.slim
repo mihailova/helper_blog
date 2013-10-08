@@ -2,15 +2,17 @@
 = div_for comment do 
   .well
     p.info.pull-right
-      = "Before #{time_ago_in_words (comment.created_at)} by #{comment.user.try(:name) || 'guest'}"
+      = "Before #{time_ago_in_words (comment.created_at)} by #{comment_author(comment)}"
       - if comment.updated?
         br
         = "Updated before #{time_ago_in_words (comment.updated_at)}"
-      
+    
+    .show-rating.pull-left
+      ==rating_stars(comment.rating)
     p.text
       = comment.text 
     - if user_signed_in? && current_user == comment.user
-      .actions.controls.btn-group.pull-left
-        = link_to 'edit', edit_post_comment_path(@post, comment), remote: true, class: 'btn btn-mini'
-        = link_to 'delete', post_comment_path(@post, comment), :method => 'delete', remote: true, class: 'btn btn-mini btn-danger'
+      .actions.controls.btn-group.pull-right
+        = link_to "edit <i class='icon-pencil'></i>".html_safe, edit_post_comment_path(@post, comment), remote: true, class: 'btn btn-mini'
+        = link_to "delete <i class='icon-trash'></i>".html_safe, post_comment_path(@post, comment), :method => 'delete', remote: true, class: 'btn btn-mini'
   hr
