@@ -17,6 +17,8 @@ html lang="en"
     = javascript_include_tag "application"
     = javascript_include_tag "//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51ed672472935a7f"
     = stylesheet_link_tag "http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css"
+    = stylesheet_link_tag "http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css"
+    = stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Henny+Penny|Life+Savers|Walter+Turncoat|Amarante|Alegreya|Roboto+Slab'
     = javascript_include_tag "http://code.jquery.com/ui/1.10.3/jquery-ui.js"
 
 
@@ -24,41 +26,45 @@ html lang="en"
 
 
   body
-    .container
-      .row
-        .span12
-          .navbar
-            .navbar-inner
-              .container
-                a.brand href=root_path Helper Blog
-                .nav-collapse.collapse.navbar-responsive-collapse
-                  p.navbar-text.pull-right
-                    - if user_signed_in?
-                      = link_to 'Logout', destroy_user_session_path, :method => :delete, :class => "navbar-link"
-                    - else
-                      = link_to 'Login', new_user_session_path, :class => "navbar-link"
-                  ul.nav
-                    = nav_link_to "Tags", tags_path
-                    - if user_signed_in?
-                      = nav_link_to "New post", new_post_path
-                    
-                  form.navbar-search.pull-right action=search_posts_path
-                    input.search-query.span2#menu-search type="text" placeholder="Search" name="search" 
+    .row
+      #top-menu
+        form action=search_posts_path
+          input.search-query.form-control.span2#menu-search type="text" placeholder="Search" name="search"
+      .span12.offset1
+        .container#main
+          .row
+            .span8.offset2
+              - flash.each do |notice|
+                div class="alert alert-#{notice.first} fade in" data-alert="alert"
+                  a.close data-dismiss='alert' href="#" ×
+                  p = notice.last
+          .row
+            .span12
+              = yield
+        hr
+          footer
+            p &copy; Company 2013
 
 
-      .row
-        .span8.offset2
-          - flash.each do |notice|
-            div class="alert alert-#{notice.first} fade in" data-alert="alert"
-              a.close data-dismiss='alert' href="#" ×
-              p = notice.last
-      .row
-        .span12
-          = yield
+      .pull-right#right-menu.span2
+        p.brand
+          = link_to "Helper blog", root_path
+          .h-line
+          .h-line
+        p.login.menu
+          - if user_signed_in?
+            = link_to 'Logout', destroy_user_session_path, :method => :delete, :class => "navbar-link"
+          - else
+            = link_to 'Login', new_user_session_path, :class => "navbar-link"
+        .h-line
+        = menu_link_to "Tags", tags_path
+        .h-line
+        - if user_signed_in?
+          = menu_link_to "New post", new_post_path
+          .h-line
 
-      hr
-        footer
-          p &copy; Company 2013
+
+  
 
     javascript:
       $(document).ready(function() {
