@@ -11,8 +11,10 @@
       ==rating_stars(comment.rating)
     p.text
       = comment.text 
-    - if user_signed_in? && current_user == comment.user
+    - if user_signed_in?
       .actions.controls.btn-group.pull-right
-        = link_to "edit <i class='icon-pencil'></i>".html_safe, edit_post_comment_path(@post, comment), remote: true, class: 'btn btn-mini'
-        = link_to "delete <i class='icon-trash'></i>".html_safe, post_comment_path(@post, comment), :method => 'delete', remote: true, class: 'btn btn-mini'
+        -if current_user == comment.user
+          = link_to "edit <i class='icon-pencil'></i>".html_safe, edit_post_comment_path(@post, comment), remote: true, class: 'btn btn-mini'
+        -if current_user == comment.user || current_user == @post.user
+          = link_to "delete <i class='icon-trash'></i>".html_safe, post_comment_path(@post, comment), :method => 'delete', remote: true, class: 'btn btn-mini'
   hr

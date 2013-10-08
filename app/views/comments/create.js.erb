@@ -6,4 +6,6 @@
   $('#comment_text').val("");
   $("#add_comment").removeClass("invisible")
   $('#new-comment').addClass("invisible")
+  $('.rating span.selected').removeClass('selected')
+  $('.post .show-rating').html('<%=rating_stars(@comment.post.avg_rating)%>')
 <% end %>

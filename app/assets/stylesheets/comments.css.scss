@@ -21,7 +21,76 @@
 
     #comment_text {
       height: 100px;
-      width: 727px;
+      width: 62%;
+    }
+    .rating {
+      font-size: 25px;
+      margin-bottom: 14px;
+      margin-top: 8px;
+    }
+
+    .actions {
+      margin-left: 52%;
+      margin-top: -15px;
+      font-size: 12px;
+
+      input {
+        font-family: 'Life Savers', cursive;
+        border-radius: 7px;
+        color: black;
+        background-image: -webkit-linear-gradient(top, #feffef, #757575);
+        background-image: -moz-linear-gradient(top, #feffef, #757575);
+        background-image: -o-linear-gradient(top, #feffef, #757575);
+        border-color: rgba(149, 185, 184, 0.82);
+        font-size: 15px;
+        font-weight: bolder;
+
+        &:hover {
+          color: #333;
+          background-image: -webkit-linear-gradient(top, #757575, #feffef);
+          background-image: -moz-linear-gradient(top, #757575, #feffef);
+          background-image: -o-linear-gradient(top, #757575, #feffef);
+        }
+      }
     }
   }
+
+.comment .well {
+  border: 1px solid #22C8E7;
+  border-left: 0px;
+  border-right: 0px;
+  padding-bottom: 29px;
+  background-color: rgba(11, 187, 221, 0.25);
+
+  .controls {
+    display: none;
+  }
+
+  .show-rating {
+    font-size: 12px;
+  }
+  
+}
+
+#add_comment {
+  font-family: 'Life Savers', cursive;
+  border-radius: 11px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  font-size: 20px;
+  border-color: rgba(92, 211, 221, 0.5);
+  color: white;
+  background-image: -webkit-linear-gradient(top, #1B6991, #BCC2CF);
+  background-image: -moz-linear-gradient(top, #1B6991, #BCC2CF);
+  background-image: -o-linear-gradient(top, #1B6991, #BCC2CF);
+
+  &:hover {
+    color: rgb(102, 104, 102);
+    background-image: -webkit-linear-gradient(top, #BCC2CF, #1B6991);
+    background-image: -moz-linear-gradient(top, #BCC2CF, #1B6991);
+    background-image: -o-linear-gradient(top, #BCC2CF, #1B6991);
+  }
+}
 

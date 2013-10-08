@@ -1,13 +1,19 @@
 .comment-form
 
+
   div[class=comments_form_class(@comment)]
   	.error
     = simple_form_for(@comment, :url => comments_form_url(@post, @comment), remote: true) do |f|
    
       .inputs
+        - unless  user_signed_in?
+          = f.input :user_name, :label => "Your name:"
         = f.input :text, :label => false
-        = f.input :rating, collection: (1..5).to_a.reverse, include_blank: false
-      .actions
+        = f.input :rating, :as => :hidden
+        .rating.pull-left
+          =set_star_rating(@comment.rating)
+        br
+      .actions.pull-rigth
       	- unless user_signed_in?
       		= recaptcha_tags
-        = f.button :submit, { class: 'btn btn-primary' }
+        = f.button :submit
