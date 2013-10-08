@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131003215834) do
+ActiveRecord::Schema.define(version: 20131008201432) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,7 +23,8 @@ ActiveRecord::Schema.define(version: 20131003215834) do
     t.integer  "user_id"
     t.integer  "post_id"
     t.text     "text"
-    t.integer  "rating"
+    t.integer  "rating",     default: 0
+    t.string   "user_name"
   end
 
   add_index "comments", ["post_id"], name: "index_comments_on_post_id", using: :btree
@@ -69,6 +70,15 @@ ActiveRecord::Schema.define(version: 20131003215834) do
 
   add_index "posts_tags", ["post_id"], name: "index_posts_tags_on_post_id", using: :btree
   add_index "posts_tags", ["tag_id"], name: "index_posts_tags_on_tag_id", using: :btree
+
+  create_table "simple_captcha_data", force: true do |t|
+    t.string   "key",        limit: 40
+    t.string   "value",      limit: 6
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "simple_captcha_data", ["key"], name: "idx_key", using: :btree
 
   create_table "tags", force: true do |t|
     t.string   "name"

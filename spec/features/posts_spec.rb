@@ -53,7 +53,7 @@ describe 'Posts' do
 
       it 'contain average rating' do
         within("div.avg_rating") do
-          expect(page).to have_content "3.0"
+          expect(page).to have_selector ".show-rating i.icon-star"
         end
       end
     end
@@ -211,15 +211,10 @@ describe 'Posts' do
         end
       end
 
-      it 'contain comments count' do
-        within("div.comments_count") do
-          expect(page).to have_content "1"
-        end
-      end
-
+      
       it 'contain average rating' do
         within("div.avg_rating") do
-          expect(page).to have_content "3.0"
+          expect(page).to have_selector ".show-rating i.icon-star"
         end
       end
 

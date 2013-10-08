@@ -75,7 +75,7 @@ class Post < ActiveRecord::Base
   end
 
   def set_rating
-    self.avg_rating = self.comments.average(:rating).to_f.round(2)
+    self.avg_rating = self.comments.where.not(rating: 0).average(:rating).to_f.round(2)
     self.save
   end
 

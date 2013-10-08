@@ -8,7 +8,7 @@ describe 'Users' do
       it 'sign in' do
         visit root_path
 
-        within '.navbar' do
+        within '#right-menu .login' do
           expect(page).to have_link 'Login', new_user_session_path
         end
       end
@@ -26,7 +26,7 @@ describe 'Users' do
       it 'sign out' do
         visit root_path
 
-        within '.navbar' do
+        within '#right-menu .login' do
           expect(page).to have_link 'Logout', destroy_user_session_path
         end
       end

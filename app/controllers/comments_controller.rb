@@ -46,7 +46,7 @@ class CommentsController < ApplicationController
     end
 
     def comment_params
-      parameters = params.require(:comment).permit(:text, :rating)
+      parameters = params.require(:comment).permit(:text, :rating, :user_name)
       parameters.merge!({post_id: @post.id})
       parameters.merge!({user_id: current_user.id}) if user_signed_in?
       parameters
