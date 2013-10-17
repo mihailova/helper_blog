@@ -1,3 +1,40 @@
 // Place all the styles related to the Pictures controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+span.picture-caption {
+	color: black;
+	background-color: rgba(255, 255, 255, 0.5);
+}
+
+div.image {
+	vertical-align: bottom;
+	display: table-cell;
+}
+
+.picture .image a {
+	position: relative;
+	top: -94%;
+}
+
+.picture .image {
+  background-size: cover;
+  width: 350px;
+  height: 350px;
+
+}
+
+
+.pictures .image-large {
+  background-size: cover;
+  width: 1000px;
+  height: 1000px;
+  vertical-align: bottom;
+	display: table-cell;
+
+	span.picture-caption {
+	font-size: 18px;
+	color: black;
+	background-color: rgba(255, 255, 255, 0.5);
+}
+}

@@ -80,6 +80,10 @@
   padding-bottom: 30px;
   margin-bottom: 5px;
 
+  .select {
+    padding-bottom: 70px;
+  }
+
   .controls {
     bottom: 12px;
     a {
@@ -173,5 +177,43 @@
   .pull-left {
     position: absolute;
   }
+}
+
+.post_form_submit {
+  font-family: 'Life Savers', cursive;
+  border-radius: 7px;
+  color: black;
+  background-image: -webkit-linear-gradient(top, #feffef, #757575);
+  background-image: -moz-linear-gradient(top, #feffef, #757575);
+  background-image: -o-linear-gradient(top, #feffef, #757575);
+  border-color: rgba(149, 185, 184, 0.82);
+  font-size: 17px;
+  font-weight: bolder;
+
+  &:hover {
+    color: #333;
+    background-image: -webkit-linear-gradient(top, #757575, #feffef);
+    background-image: -moz-linear-gradient(top, #757575, #feffef);
+    background-image: -o-linear-gradient(top, #757575, #feffef);
+  }
+}
+
+
+.post_can_modify input {
+  display: inline;
+  margin: 8px;
+}
+
+.post_can_modify label {
+  display: inline;
+}
+
+.post_private label {
+  display: inline;
+}
+
+.post_private input {
+  display: inline;
+  margin: 8px;
 }
 

@@ -62,6 +62,19 @@ html lang="en"
         - if user_signed_in?
           = menu_link_to "New post", new_post_path
           .h-line
+        - if @filter  
+          .filters
+            = simple_form_for @filter, {:url => posts_path, :method => :get} do |f|
+              .filter-group
+                p.filter-label 
+                  = 'Tags'
+                = f.collection_check_boxes :tags, Filter::Tag.all, :id, :name, :item_wrapper_class => 'filter-field', :item_wrapper_tag => :div
+              .filter-group
+                p.filter-label 
+                  = 'Authors'
+                = f.collection_check_boxes :authors, Filter::Author.all, :id, :name, :item_wrapper_class => 'filter-field', :item_wrapper_tag => :div
+              .filter-field
+                = f.input :private, :as => :boolean, :input_html => { :checked => @filter.private=="1" ? "checked" : "" }, label: "Private(#{@filter.private_posts_count})"
 
 
   

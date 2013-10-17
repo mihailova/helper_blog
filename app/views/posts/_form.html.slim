@@ -1,21 +1,24 @@
-= simple_form_for @post, :html => { :multipart => true }  do |f|
-  = f.input :title, input_html: { class: 'span8' }
-  = f.input :text, input_html: { class: 'span12' }
-  = f.input :tag_ids, collection: Tag.all, label: "Tags", input_html: { class: 'chosen-select span8', multiple: true } 
-  = f.input :private
-  - if @post.new_record? || @post.user == current_user
-    = f.input :can_modify
-  .pictures
-  button#add-picture.btn.btn-inverse.btn-small Add Picture
-  br
-  br
-  - unless @post.new_record?
-  	- @post.pictures.each do |picture|
-  	  = div_for picture
-        .pull-left
-          = link_to 'delete', picture_path(picture), class: 'btn btn-mini btn-danger',:method => 'delete', remote: true
-  	  	= image_tag picture.image.url(:medium)
-        
-                
-  = f.button :submit, class: "btn btn-primary" 
+.post
+  = simple_form_for @post, :html => { :multipart => true }  do |f|
+    = f.input :title, placeholder: 'Add title...', label: false, :autofocus => true, input_html: { class: 'span8' }
+    = f.input :text, label: false, input_html: { class: 'span12' }
+    = f.input :tag_ids, collection: Tag.all, label: false, input_html: { class: 'chosen-select span8', multiple: true, data: {placeholder:"Choose tags..."} } 
+    = f.input :private
+    - if @post.new_record? || @post.user == current_user
+      = f.input :can_modify
+    .pictures
+    button#add-picture.btn.btn-inverse.btn-small Add Picture
+    br
+    br
+    - unless @post.new_record?
+    	- @post.pictures.each do |picture|
+    	  = div_for picture
+            .image[style= "background-image:url('#{picture.image.url(:medium)}');"]
+              = link_to 'delete', picture_path(picture), class: 'btn btn-mini btn-danger pull-right',:method => 'delete', remote: true
+              span.picture-caption
+                = picture.caption
+
+          
+                  
+    = f.button :submit, class: "post_form_submit" 
 

@@ -215,6 +215,46 @@ hr {
 }
 
 
+.filter-field {
+	overflow: hidden;
+	white-space: nowrap;
+	-o-text-overflow: clip;
+	-ms-text-overflow: clip;
+	text-overflow: clip;
+	vertical-align: -1px;
+  margin-left: 8px;
+ }
+
+.filter-field input {
+  display: inline;
+  margin: 8px;
+ }
+
+.filter-field label{
+  display: inline;
+ }
+
+
+.filter-group{
+	margin-left: 4px;
+	margin-bottom: 27px;
+ }
+
+ .filters {
+ 	margin-top: 35px;
+ }
+
+.filter-label {
+	font-size: 18px;
+	font-weight: bolder;
+	color: black;
+}
+
+
+input, textarea {
+	opacity: 0.8;
+}
+
 
 
 

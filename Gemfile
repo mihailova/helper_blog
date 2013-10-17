@@ -60,7 +60,7 @@ end
 # gem 'debugger', group: [:development, :test]
 
 gem 'bootstrap-sass'
-gem 'simple_form'
+gem 'simple_form', "~> 3.0"
 gem 'slim-rails'
 gem "paperclip", "~> 3.0"
 

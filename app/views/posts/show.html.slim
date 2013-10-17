@@ -7,6 +7,10 @@
 
   - if @post.private
     span.private.label.label-info private
+
+  .avg_rating
+    .show-rating
+      ==rating_stars(@post.avg_rating)
     
   h1
     = @post.title
@@ -17,15 +21,15 @@
     - @post.tags.each do |tag|
       = tag.name
 
-  .avg_rating
-    .show-rating
-      ==rating_stars(@post.avg_rating)
+
 
   .pictures
     - @post.pictures.each do |picture|
-      = image_tag picture.image.url(:large), class: "img-rounded"
-      .caption
-        = picture.caption
+
+      .image-large[style= "background-image:url('#{picture.image.url(:large)}');"]
+        span.picture-caption
+          = picture.caption
+
   
 
   - if  user_signed_in? && (@post.can_modify || @post.user == current_user)
