@@ -1,5 +1,10 @@
 module ApplicationHelper
 
+
+
+
+
+
   def comments_form_url(post, comment)
     if comment.new_record?
       "/posts/#{post.id}/comments"
